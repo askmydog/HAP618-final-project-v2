@@ -141,7 +141,18 @@ class PatientClass:
         except:
             return "please enter all values"
 
-def age_parsing(text):
+def age_parse(text):
     pattern = "\\d+(?=\\s?(yo|year old|YO))"
-    return int(re.match(pattern, text).group(0))
-
+    try:
+        return int(re.search(pattern, text).group(0))
+    except:
+        return None
+    
+def gender_parse(text):
+    pattern = "(man|woman|male|female|(?<=\\d\\d)(m|w|f))"
+    match = re.search(pattern, text).group(0).lower()
+    if match in ['m', 'male', 'man']:
+        gender = 'm'
+    else:
+        gender = 'f'
+    return gender

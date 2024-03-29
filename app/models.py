@@ -2,7 +2,7 @@ from typing import Optional
 import sqlalchemy as sa
 import sqlalchemy.orm as so
 from app import db
-from functions import age_parsing
+from functions import age_parse
 
 class Notes(db.Model):
     id: so.Mapped[int] = so.mapped_column(primary_key=True)
