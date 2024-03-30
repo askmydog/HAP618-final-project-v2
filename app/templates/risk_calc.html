@@ -2,9 +2,67 @@
     <body>
         <form action="" method="post" novalidate>
             {{ form.hidden_tag() }}
-            {{ form.age }}
-            {{ form.gender }}
-            {{ form.submit }}
+            <div>
+                <p>{{ form.age.label }} 
+                {{ form.age }}
+                {% if form.age.errors %}
+                    <ul class = 'errors'>
+                        {% for error in form.age.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                </p>
+            </div>
+            <div>
+                <p>
+                    {{ form.gender.label }} {{ form.gender }}
+                    {% if form.gender.errors %}
+                    <ul class = 'errors'>
+                        {% for error in form.gender.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </p>
+            </div>
+            <div>
+                <p>
+                    {{ form.race.label }} {{ form.race }}
+                    {% if form.race.errors %}
+                    <ul class = 'errors'>
+                        {% for error in form.race.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </p>
+            </div>
+            <div>
+                <p>
+                    {{ form.dm.label }} {{ form.dm }}
+                    {% if form.dm.errors %}
+                    <ul class = 'errors'>
+                        {% for error in form.dm.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </p>
+            </div>
+            <div>
+                <p>
+                    {{ form.sm.label }} {{ form.sm }}
+                    {% if form.sm.errors %}
+                    <ul class = 'errors'>
+                        {% for error in form.sm.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </p>
+            </div>
+            <div>{{ form.submit }}</div>
         </form>
         
     </body>

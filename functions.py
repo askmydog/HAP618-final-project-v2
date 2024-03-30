@@ -150,9 +150,89 @@ def age_parse(text):
     
 def gender_parse(text):
     pattern = "(man|woman|male|female|(?<=\\d\\d)(m|w|f))"
-    match = re.search(pattern, text).group(0).lower()
-    if match in ['m', 'male', 'man']:
-        gender = 'm'
+    match = re.search(pattern, text.lower())
+    print(match)
+    if match:
+        match = match.group(0)
+        if match in ('m', 'male', 'man'):
+            gender = 'm'
+        else:
+            gender = 'f'
     else:
-        gender = 'f'
+        gender = None
     return gender
+
+def race_parse(text):
+    pattern = "(white|black|african american|aaf|aam)"
+    match = re.search(pattern, text.lower())
+    if match:
+        match = match.group(0)
+        if match in ('black', 'african american', 'aaf', 'aam'):
+            race = "b"
+        else:
+            race = 'w'
+    else:
+        race = None
+    return race
+
+def smoker_parse(text):
+    '''Retun 1 if patient is smoker by looking for the words smoker or smoking.  
+    If "never smoker" detected, return 0, other return None'''
+    pattern_A = "never( |-)smoker"
+    pattern_B = "smok(er|ing)"
+    text = text.lower()
+    match = re.search(pattern_A, text)
+    if match:
+        sm = 0
+    elif re.search(pattern_B, text):
+        sm = 1
+    else:
+        sm = None
+    return sm
+
+def dm_parse(text):
+    '''Return 1 if words DM, T2DM, diabetes, IDDM, NIDDM decteted, or if an A1C >6.5 
+    is found, if listed.  Otherwise, return None.'''
+    pattern_hist = '\\b(dm|t2dm|diabetes|iddm|niddm)\\b'
+    pattern_lab = 'a1c\\D+(\\d{1,2}\\.?\\d{1,2}?)'
+    text = text.lower()
+    match_hist = re.search(pattern_hist,text)
+    match_lab = re.search(pattern_lab,text)
+    if match_lab: match_lab = float(re.search(pattern_lab,text).group(1))
+    if match_hist or match_lab >= 6.5:
+        dm = 1
+    else:
+        dm = 0
+    return dm
+
+def htnrx_parse(text):
+    '''Return 1 if words HTN or hypertension detected, or if BP is >140/90. Assumes if patient has diagnosis of HTN, is on treatment.
+    If not detected, return None.'''
+    text = text.lower()
+    pattern_hist = '(htn|hypertension)' #( (.+?controlled|treated|(on (therapy|treatment))))?
+    pattern_bp = '(\\d{2,3})\\/(\\d{2,3})'
+    match_hist = re.search(pattern_hist, text)
+    match_bp = re.search(pattern_bp, text)
+    htn = None
+    if match_bp:
+        if int(match_bp.group(1))>=140 or int(match_bp.group(2))>=90: #assumes that patient on treatment if BP >140/90
+            htn = 1
+    if match_hist or htn:
+        htnrx = 1
+    else:
+        htnrx = 0
+    return htnrx
+
+def sbp_parse(text):
+    '''Extract systolic blood pressure if listed, otherwise return None'''
+    text = text.lower()
+    pattern_bp = '(\\d{2,3})\\/(\\d{2,3})'
+    match_bp = re.search(pattern_bp, text)
+    if match_bp: sbp = int(match_bp.group(1))
+    else: sbp = None
+    return sbp
+
+def tchol_parse(text):
+    '''Extract total cholesterol, if listed.  Otherwise return None'''
+    text = text.lower()
+    
