@@ -33,10 +33,6 @@ def NoteInput():
     else:
         return render_template('note.html', form = form)
 
-@app.route('/results')
-def results():
-    return render_template('results.html', results = Notes.query.all())
-
 @app.route('/risk-calc', methods = ['GET','POST'])
 def risk_calc():
     form = RiskForm()
