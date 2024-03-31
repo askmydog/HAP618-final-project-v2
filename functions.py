@@ -2,15 +2,8 @@ import math, re
 from datetime import datetime
 
 class PatientClass:
-    def __init__(self, mrn = None, age = None, sbp = None, tchol = None, hdl = None, dm = None, sm = None, race = None, gen = None, hrx = None) -> None:
+    def __init__(self, age = None, sbp = None, tchol = None, hdl = None, dm = None, sm = None, race = None, gen = None, hrx = None) -> None:
 
-        age_eq = lambda dob: math.floor(((datetime.today() - datetime.strptime(dob, '%m/%d/%Y')).days/365))
-
-        self.mrn = mrn
-        # if not self.dob is None: self.dob = datetime.strptime(dob, '%m/%d/%Y')
-        # if self.dob is None:
-        #     self.age = age_eq(dob)
-        # else:
         self.age = int(age)
         self.sbp = int(sbp)
         self.tchol = int(tchol)
@@ -20,6 +13,7 @@ class PatientClass:
         self.race = race
         self.gen = gen
         self.hrx = hrx
+        self.risk = None
 
     def ascvd_risk(self) -> float:
         """Calculate 10 year cardiovascular risk based on (variable name, options):
@@ -32,14 +26,6 @@ class PatientClass:
         - HDL-C (hdl)
         - Diabetes (dm)
         - Smoking (sm)"""
-
-#         print(f"""age {self.age} gender {self.gen} race {self.race} 
-# dm {self.dm}{type(self.dm)} tchol {self.tchol} hdl {self.hdl} sbp {self.sbp} 
-# hrx {self.hrx} sm {self.sm}""")
-        # if race != "w" or race != "b":
-        #     return "Please enter the patient's race"
-        # if gen != "m" or gen != "f":
-        #     return "Please enter the patient's gender"
 
         # zero coefficients
         baseline_surv = 0
@@ -139,9 +125,18 @@ class PatientClass:
         # calculate risk for each demographic: subtract mean coefficient * values for demographic
         # from individual coefficients * values and raise 1 - baseline survival to this number
 
-        return 1 - baseline_surv ** math.e ** (coef_val - mean_coef_val)
+
+        self.risk =  1 - baseline_surv ** math.e ** (coef_val - mean_coef_val)
+        return self.risk
         # except:
         #     return "please enter all values"
+    
+    def risk_rec(self):
+        print(f'self.risk {self.risk}')
+        if not self.risk: self.risk = self.ascvd_risk()
+        if self.risk >= 0.2: return 'High intensity statin recommended'
+        elif self.risk >=0.075: return 'High intensity statin recommended'
+        else: return 'No statin recommended'
 
 def age_parse(text):
     pattern = "\\d+(?=\\s?(yo|year old|YO))"

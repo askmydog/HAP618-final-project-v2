@@ -1,9 +1,9 @@
 from flask import render_template, request, redirect, url_for,flash
 from app import app
-import sqlalchemy as sa
 from app.forms import NoteForm, RiskForm
 from functions import * #age_parse, gender_parse, dm_parse, smoker_parse, race_parse, hrx_parse, sbp_parse, tchol_parse, hdl_parse, PatientClass, risk_rec
 
+#Start point for webpage. Pass for NoteForm to note.html on 'GET'. For 'POST' parse 
 @app.route('/', methods=['GET', 'POST'])
 def NoteInput():
     form = NoteForm()
@@ -46,9 +46,9 @@ def risk_calc():
                                hdl=form.hdl.data,
                                sbp = form.sbp.data,
                                hrx=form.hrx.data)
-        risk = patient.ascvd_risk()
-        rec = risk_rec(risk)
-        return render_template('results.html', risk = risk, rec = rec)
+        print(patient.ascvd_risk(), " ", patient.risk_rec())
+
+        return render_template('results.html', risk = patient.ascvd_risk(), rec = patient.risk_rec())
     age = request.args.get("age")
     gender = request.args.get("gender")
     dm = request.args.get("dm")
