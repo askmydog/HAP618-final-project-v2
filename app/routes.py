@@ -1,9 +1,9 @@
 from flask import render_template, request, redirect, url_for,flash
 from app import app
 from app.forms import NoteForm, RiskForm
-from functions import * #age_parse, gender_parse, dm_parse, smoker_parse, race_parse, hrx_parse, sbp_parse, tchol_parse, hdl_parse, PatientClass, risk_rec
+from functions import *
 
-#Start point for webpage. Pass for NoteForm to note.html on 'GET'. For 'POST' parse 
+#Start point for webpage. Pass for NoteForm to note.html on 'GET'. For 'POST' parse note for calculator information and pass as URL arguments
 @app.route('/', methods=['GET', 'POST'])
 def NoteInput():
     form = NoteForm()
@@ -49,6 +49,8 @@ def risk_calc():
         print(patient.ascvd_risk(), " ", patient.risk_rec())
 
         return render_template('results.html', risk = patient.ascvd_risk(), rec = patient.risk_rec())
+    
+    # If 'GET', set risk calculator defaults with parsed data from notes
     age = request.args.get("age")
     gender = request.args.get("gender")
     dm = request.args.get("dm")
@@ -70,11 +72,3 @@ def risk_calc():
     form.process()
     return render_template("risk_calc.html", form = form)
 
-    
-    
-    # age = Notes.query.
-    # form = RiskForm()
-    # form.age.default = 
-    # if form.validate_on_submit():
-        # pass
-    # return render_template('risk_calc.html', form = form)
