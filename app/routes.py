@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, url_for,flash
+from flask import render_template, request, redirect, url_for,flash, jsonify
 from app import app
 from app.forms import NoteForm, RiskForm
 from functions import *
