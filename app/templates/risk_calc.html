@@ -2,118 +2,136 @@
 
 {% block content %}
 
+
+
 <form action="" method="post" novalidate>
     {{ form.hidden_tag() }}
     <div class="row">
-        <div class="column">
-            <p>{{ form.age.label }} 
-            {{ form.age }}
-            {% if form.age.errors %}
-                <ul class = 'errors'>
-                    {% for error in form.age.errors %}
-                    <li>{{ error }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-            </p>
+        <div class="col">
+                <div class = "form-group">
+                <textarea class = "form-control" name="note" id="note" rows="15" placeholder="Enter Note Here"></textarea>
+                </div>
         </div>
-        <div class="column">
+    </div>
+
+    <div class="row">
+        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
+            <div class="form-group">
+                <p>{{ form.age.label }} 
+                {{ form.age }}
+                {% if form.age.errors %}
+                    <ul class = 'errors'>
+                        {% for error in form.age.errors %}
+                        <li style="color: red;">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                </p>
+            </div>
+        </div>
+        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
             <p>
                 {{ form.gender.label }} {{ form.gender }}
                 {% if form.gender.errors %}
                 <ul class = 'errors'>
                     {% for error in form.gender.errors %}
-                    <li>{{ error }}</li>
+                    <li style="color: red;">{{ error }}</li>
                     {% endfor %}
                 </ul>
                 {% endif %}
             </p>
         </div>
+        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
+            <p>
+                {{ form.race.label }} {{ form.race }}
+                {% if form.race.errors %}
+                <ul class = 'errors'>
+                    {% for error in form.race.errors %}
+                    <li style="color: red;">{{ error }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </p>
+        </div>
+        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
+            <p>
+                {{ form.dm.label }} {{ form.dm }}
+                {% if form.dm.errors %}
+                <ul class = 'errors'>
+                    {% for error in form.dm.errors %}
+                    <li style="color: red;">{{ error }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </p>
+        </div>
+        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
+            <p>
+                {{ form.sm.label }} {{ form.sm }}
+                {% if form.sm.errors %}
+                <ul class = 'errors'>
+                    {% for error in form.sm.errors %}
+                    <li style="color: red;">{{ error }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </p>
+        </div>
+        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
+            <p>
+                {{ form.tchol.label }} {{ form.tchol }}
+                {% if form.tchol.errors %}
+                <ul class = 'errors'>
+                    {% for error in form.tchol.errors %}
+                    <li style="color: red;">{{ error }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </p>
+        </div>
+        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
+            <p>
+                {{ form.hdl.label }} {{ form.hdl }}
+                {% if form.hdl.errors %}
+                <ul class = 'errors'>
+                    {% for error in form.hdl.errors %}
+                    <li style="color: red;">{{ error }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </p>
+        </div>
+        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
+            <p>
+                {{ form.sbp.label }} {{ form.sbp }}
+                {% if form.sbp.errors %}
+                <ul class = 'errors'>
+                    {% for error in form.sbp.errors %}
+                    <li style="color: red;">{{ error }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </p>
+        </div>
+        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
+            <p>
+                {{ form.hrx.label }} {{ form.hrx }}
+                {% if form.hrx.errors %}
+                <ul class = 'errors'>
+                    {% for error in form.hrx.errors %}
+                    <li style="color: red;">{{ error }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </p>
+        </div>
+    <div class="row">
+        <div class="col">
+            {{ form.submit }}
+        </div>
     </div>
-    <div>
-        <p>
-            {{ form.race.label }} {{ form.race }}
-            {% if form.race.errors %}
-            <ul class = 'errors'>
-                {% for error in form.race.errors %}
-                <li>{{ error }}</li>
-                {% endfor %}
-            </ul>
-            {% endif %}
-        </p>
-    </div>
-    <div>
-        <p>
-            {{ form.dm.label }} {{ form.dm }}
-            {% if form.dm.errors %}
-            <ul class = 'errors'>
-                {% for error in form.dm.errors %}
-                <li>{{ error }}</li>
-                {% endfor %}
-            </ul>
-            {% endif %}
-        </p>
-    </div>
-    <div>
-        <p>
-            {{ form.sm.label }} {{ form.sm }}
-            {% if form.sm.errors %}
-            <ul class = 'errors'>
-                {% for error in form.sm.errors %}
-                <li>{{ error }}</li>
-                {% endfor %}
-            </ul>
-            {% endif %}
-        </p>
-    </div>
-    <div>
-        <p>
-            {{ form.tchol.label }} {{ form.tchol }}
-            {% if form.tchol.errors %}
-            <ul class = 'errors'>
-                {% for error in form.tchol.errors %}
-                <li>{{ error }}</li>
-                {% endfor %}
-            </ul>
-            {% endif %}
-        </p>
-    </div>
-    <div>
-        <p>
-            {{ form.hdl.label }} {{ form.hdl }}
-            {% if form.hdl.errors %}
-            <ul class = 'errors'>
-                {% for error in form.hdl.errors %}
-                <li>{{ error }}</li>
-                {% endfor %}
-            </ul>
-            {% endif %}
-        </p>
-    </div>
-    <div>
-        <p>
-            {{ form.sbp.label }} {{ form.sbp }}
-            {% if form.sbp.errors %}
-            <ul class = 'errors'>
-                {% for error in form.sbp.errors %}
-                <li>{{ error }}</li>
-                {% endfor %}
-            </ul>
-            {% endif %}
-        </p>
-    </div>
-    <div>
-        <p>
-            {{ form.hrx.label }} {{ form.hrx }}
-            {% if form.hrx.errors %}
-            <ul class = 'errors'>
-                {% for error in form.hrx.errors %}
-                <li>{{ error }}</li>
-                {% endfor %}
-            </ul>
-            {% endif %}
-        </p>
-    </div>
-    <div>{{ form.submit }}</div>
+</div>
 </form>
+</div>
+
 {% endblock %}

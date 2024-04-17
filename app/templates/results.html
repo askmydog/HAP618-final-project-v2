@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div>
-        <p>The patient's 10-year risk of heart attack or stroke is <b>{{ '%.1f' % (risk * 100) }}%</b></p>
+    <div class="container-fluid py-3 my-3">
+
+        <p class="lead">The patient's 10-year risk of heart attack or stroke is <strong>{{ '%.1f' % (risk * 100) }}%</strong></p>
         <p>{{rec}}</p>
     </div>
 {% endblock %}
