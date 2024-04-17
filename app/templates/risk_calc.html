@@ -9,7 +9,8 @@
     <div class="row">
         <div class="col">
                 <div class = "form-group">
-                <textarea class = "form-control" name="note" id="note" rows="15" placeholder="Enter Note Here"></textarea>
+                {{ form.note.label}}
+                {{ form.note(class_="form-control", placeholder = "please enter the note here", rows="10") }}
                 </div>
         </div>
     </div>
@@ -127,7 +128,8 @@
         </div>
     <div class="row">
         <div class="col">
-            {{ form.submit }}
+            {{ form.submit(class_="btn btn-primary") }}
+            <button type="button" class="btn btn-danger" id="clear_btn">Clear form</button>
         </div>
     </div>
 </div>

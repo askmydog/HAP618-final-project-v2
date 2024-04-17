@@ -9,6 +9,7 @@ sm = document.getElementById('sm');
 tchol = document.getElementById('tchol');
 hdl = document.getElementById('hdl');
 sbmt = document.getElementById('submit');
+clrbtn = document.getElementById("clear_btn")
 
 function age_parser(text){
     const re = /\d+(?=\s?(yo|year old|YO))/i;
@@ -186,3 +187,7 @@ note.addEventListener('input', () => {
         hdl.value = hdl_match;
     }
 });
+
+clrbtn.addEventListener("click", ()=>{
+    location.replace(location.href)
+})

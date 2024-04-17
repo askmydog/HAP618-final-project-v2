@@ -4,6 +4,7 @@
     <div class="container-fluid py-3 my-3">
 
         <p class="lead">The patient's 10-year risk of heart attack or stroke is <strong>{{ '%.1f' % (risk * 100) }}%</strong></p>
-        <p>{{rec}}</p>
+        <p>{{rec[0]}}</p>
+        <p class="text-muted">{{rec[1]}}<em>{{ '%.1f' % (rec[2]*100)}}%</em></p>
     </div>
 {% endblock %}

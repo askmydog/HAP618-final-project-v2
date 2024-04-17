@@ -22,6 +22,6 @@ class RiskForm(FlaskForm):
     dm = SelectField('Diabetes', choices=[('', ''),(1, 'Yes'),(0,'No')], validators=[validate_select], render_kw={'class':'form-control'})
     race = SelectField('Race', choices=[('',''),('w', 'White'),('b','Black')], validators=[validate_select], render_kw={'class':'form-control'})
     sm = SelectField('Smoking', choices=[('',''),(1, 'Yes'),(0,'No')], validators=[validate_select], render_kw={'class':'form-control'})
-    submit = SubmitField('Submit', render_kw={'class':'btn btn-primary'})
+    submit = SubmitField('Submit',)
 
 

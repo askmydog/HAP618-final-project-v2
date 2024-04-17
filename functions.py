@@ -132,10 +132,18 @@ class PatientClass:
         #     return "please enter all values"
     
     def risk_rec(self):
-        print(f'self.risk {self.risk}')
+        rec_list = []
         if not self.risk: self.risk = self.ascvd_risk()
-        if self.risk >= 0.2: return 'High intensity statin recommended'
-        elif self.risk >=0.075: return 'High intensity statin recommended'
+        if self.risk >= 0.2:
+            rec_list.append("A high intensity statin is recommended.")
+            rec_list.append("A high intensity statin will reduce the patient's risk by 50% to ")
+            rec_list.append(self.risk*.5)
+            return rec_list
+        elif self.risk >=0.075: 
+            rec_list.append("A moderate intensity statin is recommended.")
+            rec_list.append("A moderate intensity statin will reduce the patient's risk by 30% to ")
+            rec_list.append(self.risk*.7)
+            return rec_list
         else: return 'No statin recommended'
 
 def age_parse(text):
@@ -249,6 +257,6 @@ def hdl_parse(text):
 
 def risk_rec(risk):
     if risk >= 0.2: return 'High intensity statin recommended'
-    elif risk >=0.075: return 'High intensity statin recommended'
+    elif risk >=0.075: return 'Moderate intensity statin recommended'
     else: return 'No statin recommended'
         
