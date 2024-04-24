@@ -53,7 +53,7 @@ class PatientClass:
                 hdl_coef = -7.990
                 hdl_age_coef = 1.769
                 dm_coef = 0.658
-                sm_coef = -7.837
+                sm_coef = 7.837
                 sm_age_coef = -1.795
                 if self.hrx == 1:
                     sbp_coef = 1.797
@@ -109,7 +109,6 @@ class PatientClass:
 
         #calculate coefficients * values for each variable 
 
-        # try:
         coef_val =  age_coef * math.log(self.age) + \
                     age_sq_coef * math.log(self.age)**2 + \
                     tchol_coef * math.log(self.tchol) + \
@@ -128,8 +127,6 @@ class PatientClass:
 
         self.risk =  1 - baseline_surv ** math.e ** (coef_val - mean_coef_val)
         return self.risk
-        # except:
-        #     return "please enter all values"
     
     def risk_rec(self):
         rec_list = []
@@ -138,11 +135,13 @@ class PatientClass:
             rec_list.append("A high intensity statin is recommended.")
             rec_list.append("A high intensity statin will reduce the patient's risk by 50% to ")
             rec_list.append(self.risk*.5)
+            print(f'high {rec_list}')
             return rec_list
         elif self.risk >=0.075: 
             rec_list.append("A moderate intensity statin is recommended.")
             rec_list.append("A moderate intensity statin will reduce the patient's risk by 30% to ")
             rec_list.append(self.risk*.7)
+            print(f'moderate {rec_list}')
             return rec_list
         else: return 'No statin recommended'
 

@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, url_for,flash, jsonify
+from flask import render_template
 from app import app
 from app.forms import RiskForm
 from functions import PatientClass
@@ -17,6 +17,7 @@ def risk_calc():
                                 hdl=form.hdl.data,
                                 sbp = form.sbp.data,
                                 hrx=form.hrx.data)
+            print(patient.ascvd_risk())
             return render_template('results.html', risk = patient.ascvd_risk(), rec = patient.risk_rec())
         else:
             form.note.default = form.note.data

@@ -12,7 +12,7 @@ sbmt = document.getElementById('submit');
 clrbtn = document.getElementById("clear_btn")
 
 function age_parser(text){
-    const re = /\d+(?=\s?(yo|year old|YO))/i;
+    const re = /\d+(?=\s?(yo|year old))/i;
     let match = re.exec(text);
     if (match != null) {
         return Number(match[0])
@@ -22,7 +22,7 @@ function age_parser(text){
 }
 
 function gen_parser(text) {
-    const re = /(man|woman|male|female|(?<=\d\\d)(m|w|f|aam|aaf))/i;
+    const re = /\b(man|woman|male|female|((?<=\d\d)|(?<=\d\dyo )|(?<=\d\dyo, ))(m|w|f|aam|aaf))\b/i;
     let match = re.exec(text);
     if (match != null) {
         match = match[0];
@@ -50,26 +50,18 @@ function race_parser(text) {
 }
 
 function sbp_parser(text) {
-    const re_bp = /(\d{2,3})\/(\d{2,3})/i;
+    const re_bp = /(?<!\d\d\/)(?<!\d\/)(\d{2,3})\/(\d{2,3}(?!\/\d+))/i;
     let match_bp = re_bp.exec(text);
     const re_sbp = /(sbp|systolic blood pressure|systolic bp)\D+(\d{2,3})/i;
     let match_sbp = re_sbp.exec(text);
     // const re_hist = /(?!no )(?!=history of )(?!h\/o)htn/i;
     // let match_hist = re_hist.exec(text);
     if (match_bp != null) {
-        if (Number(match_bp[1]) >=140 | Number(match_bp[2]) >= 90) {
-            return Number(match_bp[1])
-        } else {
-            return 0
-        }
+        return Number(match_bp[1])
     } else if (match_sbp != null) {
-        if (Number(match_sbp[2]) >= 140) {
-            return Number(match_sbp[2]);
-        } else {
-            return 0;
-        }
+        return Number(match_sbp[2]);
     } else {
-
+        return null
     }
 }
 
@@ -78,10 +70,10 @@ function sm_parser(text) {
     match_a = re_a.exec(text);
     re_b = /(does not |never( |-)|no )smok/i;
     match_b = re_b.exec(text)
-    if (match_a != null) {
-        return 1;
-    } else if (match_b != null) {
+    if (match_b != null) {
         return 0;
+    } else if (match_a != null) {
+        return 1;
     } else {
         return null;
     }
