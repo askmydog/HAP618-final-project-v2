@@ -133,129 +133,13 @@ class PatientClass:
         if not self.risk: self.risk = self.ascvd_risk()
         if self.risk >= 0.2:
             rec_list.append("A high intensity statin is recommended.")
-            rec_list.append("A high intensity statin will reduce the patient's risk by 50% to ")
-            rec_list.append(self.risk*.5)
-            print(f'high {rec_list}')
+            rec_list.append(f"A high intensity statin will reduce the patient's risk by 50% to {(self.risk*.7):.1%}.")
             return rec_list
         elif self.risk >=0.075: 
             rec_list.append("A moderate intensity statin is recommended.")
-            rec_list.append("A moderate intensity statin will reduce the patient's risk by 30% to ")
-            rec_list.append(self.risk*.7)
-            print(f'moderate {rec_list}')
+            rec_list.append(f"A moderate intensity statin will reduce the patient's risk by 30% to {(self.risk*.7):.1%}.")
             return rec_list
-        else: return 'No statin recommended'
-
-def age_parse(text):
-    pattern = "\\d+(?=\\s?(yo|year old|YO))"
-    try:
-        return int(re.search(pattern, text).group(0))
-    except:
-        return None
-    
-def gender_parse(text):
-    pattern = "(man|woman|male|female|(?<=\\d\\d)(m|w|f))"
-    match = re.search(pattern, text.lower())
-    print(match)
-    if match:
-        match = match.group(0)
-        if match in ('m', 'male', 'man'):
-            gender = 'm'
-        else:
-            gender = 'f'
-    else:
-        gender = None
-    return gender
-
-def race_parse(text):
-    """Return 'b' if words black, african american, aaf or aam are detected, otherwise returns 'w'.
-    Assumes patient is white unless otherwise specified"""
-    pattern = "\\b(black|african american|aaf|aam|aa)\\b"
-    match = re.search(pattern, text.lower())
-    if match: race = "b"
-    else: race = 'w'
-    return race
-
-def smoker_parse(text):
-    '''Retun 1 if patient is smoker by looking for the words smoker or smoking.  
-    If "never smoker" detected, return 0, other return None'''
-    pattern_A = "never( |-)smoke(r|d)"
-    pattern_B = "smok(er|ing|ed)"
-    text = text.lower()
-    match = re.search(pattern_A, text)
-    if match:
-        sm = 0
-    elif re.search(pattern_B, text):
-        sm = 1
-    else:
-        sm = None
-    return sm
-
-def dm_parse(text):
-    '''Return 1 if words DM, T2DM, diabetes, IDDM, NIDDM decteted, or if an A1C >6.5 
-    is found, if listed.  Otherwise, return None.'''
-    pattern_hist = '\\b(dm|t2dm|diabetes|iddm|niddm)\\b'
-    pattern_lab = 'a1c\\D+(\\d{1,2}\\.?\\d{1,2}?)'
-    text = text.lower()
-    match_hist = re.search(pattern_hist,text)
-    match_lab = re.search(pattern_lab,text)
-    if match_lab: match_lab = float(re.search(pattern_lab,text).group(1))
-    if match_hist or match_lab >= 6.5:
-        dm = 1
-    else:
-        dm = 0
-    return dm
-
-def hrx_parse(text):
-    '''Return 1 if words HTN or hypertension detected, or if BP is >140/90. Assumes if patient has diagnosis of HTN, is on treatment.
-    If not detected, return None.'''
-    text = text.lower()
-    pattern_hist = '(htn|hypertension)' #( (.+?controlled|treated|(on (therapy|treatment))))?
-    pattern_bp = '(\\d{2,3})\\/(\\d{2,3})'
-    pattern_sbp = '(sbp|systolic blood pressure|systolic bp)\\D+(\\d{2,3})'
-    match_hist = re.search(pattern_hist, text)
-    match_bp = re.search(pattern_bp, text)
-    match_sbp = re.search(pattern_sbp, text)
-    htn = None
-    if match_bp:
-        if int(match_bp.group(1))>=140 or int(match_bp.group(2))>=90: #assumes that patient on treatment if BP >140/90
-            htn = 1
-    if match_sbp:
-        if int(match_sbp.group(2))>140: htn = 1
-    if match_hist or htn:
-        htnrx = 1
-    else:
-        htnrx = 0
-    return htnrx
-
-def sbp_parse(text):
-    '''Extract systolic blood pressure, if listed, otherwise return None'''
-    text = text.lower()
-    pattern_bp = '(\\d{2,3})\\/(\\d{2,3})'
-    pattern_sbp = '(sbp|systolic blood pressure|systolic bp)\\D+(\\d{2,3})'
-    match_bp = re.search(pattern_bp, text)
-    match_sbp = re.search(pattern_sbp, text)
-    if match_bp: return int(match_bp.group(1))
-    if match_sbp: return int(match_sbp.group(2))
-    else: return None
-
-def tchol_parse(text):
-    '''Extract total cholesterol, if listed.  Otherwise return None'''
-    text = text.lower()
-    pattern_chol = '(t chol|total chol|total cholesterol|tchol)\\D+(\\d{2,3})'
-    match_chol = re.search(pattern_chol, text)
-    if match_chol: match_chol = int(match_chol.group(2))
-    return match_chol
-
-def hdl_parse(text):
-    '''Extract total cholesterol, if listed.  Otherwise return None'''
-    text = text.lower()
-    pattern_hdl = '(hdl|high density lipoprotein)\\D+(\\d+\\b)'
-    match_hdl = re.search(pattern_hdl, text)
-    if match_hdl: match_hdl = int(match_hdl.group(2))
-    return match_hdl
-
-def risk_rec(risk):
-    if risk >= 0.2: return 'High intensity statin recommended'
-    elif risk >=0.075: return 'Moderate intensity statin recommended'
-    else: return 'No statin recommended'
-        
+        else: 
+            rec_list.append("No statin is recommended")
+            rec_list.append(f"The patient's risk is low enough that a statin medication will not substantially lower their risk.")
+            return rec_list
